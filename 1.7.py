@@ -133,4 +133,46 @@ from string import ascii_lowercase, digits
 # store.remove_application(app_youtube)
 # store.block_application(app_youtube)
 
-# 1.11
+# 1.7
+
+class FormLogin:
+    def __init__(self, lgn, psw):
+        self.login = lgn
+        self.password = psw
+
+    def render_template(self):
+        return "\n".join(['<form action="#">', self.login.get_html(), self.password.get_html(), '</form>'])
+
+
+class TextInput:
+    """
+    клаас для ввода размера поля
+    """
+    CHARS = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя " + ascii_lowercase
+    CHARS_CORRECT = CHARS + CHARS.upper() + digits
+    def __init__(self,name, size=10):
+        self.name = name # сохраняет название для поля
+        self.size = size # размер поля ввода
+
+    def get_html(self):
+        return f"<p class='login'><{self.name}>: <input type='text' size=<{self.size}> />"
+
+    @classmethod
+    def check_name(cls,name):
+        if 3 <= len(name) <= 50 and set(name) in cls.CHARS_CORRECT:
+
+
+class PasswordInput:
+    """
+    клаас для ввода размера пароля
+    """
+    CHARS = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя " + ascii_lowercase
+    CHARS_CORRECT = CHARS + CHARS.upper() + digits
+    def __init__(self,name, size=10):
+        self.name = name # сохраняет название для поля
+        self.size = size # размер поля ввода
+
+    def get_html(self):
+        return f"<p class='password'><{self.name}>: <input type='text' size=<{self.size}> />"
+
+
